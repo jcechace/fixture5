@@ -41,7 +41,7 @@ class FixtureProcessorTest {
 
     @Test
     fun `should throw on teardown error`() {
-        val fixtures = listOf(Fixture(ExampleSetupThrowingFixture::class))
+        val fixtures = listOf(Fixture(ExampleTeardownThrowingFixture::class))
         val processor = FixtureProcessor(fixtures, store)
 
         processor.setupFixtures()
