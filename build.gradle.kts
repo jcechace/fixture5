@@ -1,5 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val versionMockk: String by project
+
 plugins {
     kotlin("jvm") version "1.6.10"
     `maven-publish`
@@ -16,6 +18,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.10")
     implementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
     testImplementation(kotlin("test"))
+    testImplementation("io.mockk:mockk:$versionMockk")
 }
 
 publishing {
