@@ -1,4 +1,5 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
+@file:OptIn(ExperimentalStdlibApi::class)
 
 package fixture5.annotations
 
@@ -20,7 +21,8 @@ import kotlin.reflect.full.superclasses
  * @return fixture processor with setup fixtures
  */
 internal fun fixturesOf(type: KClass<*>, store: Store): FixtureProcessor {
-    val processor = FixtureProcessor(type.superclasses + type, store)
+    val fixtures = (type.superclasses + type).flatMap { it.findAnnotations<Fixture>() }
+    val processor = FixtureProcessor(fixtures, store)
     processor.setupFixtures()
     return processor
 }
@@ -33,16 +35,11 @@ internal fun fixtureContextOf(type: KClass<*>, store: Store): ContextProcessor? 
     return context?.let { ContextProcessor(type, it, store) }
 }
 
-@OptIn(ExperimentalStdlibApi::class)
-internal class FixtureProcessor(scannedTypes: List<KClass<*>>, val store: Store) {
+internal class FixtureProcessor(fixtures: List<Fixture>, val store: Store) {
 
-    val fixtureTypes: List<KClass<out TestFixture>> = scannedTypes.run {
-        val fixtures = flatMap { it.findAnnotations<Fixture>() }.map { it.value }
-        val batch = flatMap { it.findAnnotations<WithFixtures>() }.flatMap { it.value.toList() }
-        fixtures + batch
-    }
+    val fixtureTypes: List<KClass<out TestFixture>> = fixtures.map { it.value }
 
-    private lateinit var fixtureObjects: List<TestFixture>
+    val fixtureObjects: List<TestFixture> by lazy { fixtureTypes.map(this::setupFixture) }
 
     /**
      * Instantiates all fixture type and calls [TestFixture.setup] on each of them.
@@ -50,9 +47,8 @@ internal class FixtureProcessor(scannedTypes: List<KClass<*>>, val store: Store)
      *
      * @throws [FixtureException] if error occurs
      */
-    fun setupFixtures() {
-        fixtureObjects = fixtureTypes.map(this::setupFixture)
-    }
+    fun setupFixtures() = fixtureObjects
+
 
     /**
      * Calls [TestFixture.teardown] on each fixture object

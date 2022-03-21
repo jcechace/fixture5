@@ -1,7 +1,6 @@
 package fixture5
 
 import fixture5.annotations.FixtureProcessor
-import fixture5.annotations.WithFixtures
 import fixture5.annotations.fixturesOf
 import org.junit.jupiter.api.extension.*
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace
