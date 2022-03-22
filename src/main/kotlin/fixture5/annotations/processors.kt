@@ -56,7 +56,7 @@ internal class FixtureProcessor(fixtures: List<Fixture>, val store: Store) {
      * @throws [FixtureException] if error occurs
      */
     fun teardownFixtures() {
-        fixtureObjects.forEach(this::teardownFixture)
+        fixtureObjects.asReversed().forEach(this::teardownFixture)
     }
 
     private fun setupFixture(type: KClass<out TestFixture>): TestFixture {

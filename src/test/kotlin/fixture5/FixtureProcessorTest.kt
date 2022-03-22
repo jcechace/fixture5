@@ -9,10 +9,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.extension.ExtensionContext
-import kotlin.test.assertContains
-import kotlin.test.assertFalse
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 @ExtendWith(MockKExtension::class)
 class FixtureProcessorTest {
@@ -80,5 +77,24 @@ class FixtureProcessorTest {
 
         processor.teardownFixtures()
         assertFalse("Fixture object should be torn down") { fixtureObject.initialised }
+    }
+
+    @Test
+    fun `should setup fixtures in order`() {
+        val fixtures = listOf(Fixture(CountingSetupFixture::class), Fixture(CountingSetupFixture::class))
+        val processor = FixtureProcessor(fixtures, store)
+        processor.setupFixtures()
+
+        assertContentEquals(listOf(0, 1), CountingSetupFixture.list.map { it.num })
+    }
+
+    @Test
+    fun `should tear down fixtures in reverse order`() {
+        val fixtures = listOf(Fixture(CountingTeardownFixture::class), Fixture(CountingTeardownFixture::class))
+        val processor = FixtureProcessor(fixtures, store)
+        processor.setupFixtures()
+        processor.teardownFixtures()
+
+        assertContentEquals(listOf(1, 0), CountingTeardownFixture.list.map { it.num })
     }
 }
