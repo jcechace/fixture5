@@ -31,7 +31,7 @@ Fixtures can be employed in test by registering the ``FixtureExtension`` and usi
 
 ```kotlin
 @Fixture(HttpClientFixture::class)
-@ExtendsWith(FixtureExtension::class)
+@ExtendWith(FixtureExtension::class)
 class HttpClientTest {
     // test code here
 }
@@ -58,7 +58,7 @@ Objects provided by fixtures can also be injected into tests either via construc
 ```kotlin
 @Fixture(BlockingEngine::class)
 @Fixture(HttpClientFixture::class)
-@ExtendsWith(FixtureExtension::class)
+@ExtendWith(FixtureExtension::class)
 class HttpClientTest(val client: HttpClient) {
     @Test
     fun `http client should use provided engine`(engine: Engine) {
@@ -89,7 +89,7 @@ The following code will result in ``FixtureException`` due to missing dependency
 
 ```kotlin
 @Fixture(HttpClientFixture::class)
-@ExtendsWith(FixtureExtension::class)
+@ExtendWith(FixtureExtension::class)
 class HttpClientTest 
 ```
 
