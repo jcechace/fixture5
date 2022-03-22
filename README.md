@@ -48,6 +48,7 @@ override fun setup() {
     val engine = retrieve(Engine::class)
     val plainClient = PlainHttpClient(engine)
     val secureClient = AuthenticatedHttpClient(engine)
+    
     store(plainClient)  // will be stored as PlainHttpClient::class
     store(HttpClient::class, secureClient) // or declare provided type explicitly
 }
@@ -76,6 +77,7 @@ class HttpClientFixture(store: ExtensionContext.Store) : TestFixture(store) {
     override fun setup() {
         val engine = retrieve(Engine::class)
         val secureClient = AuthenticatedHttpClient(engine)
+        
         store(HttpClient::class, secureClient) 
     }
 
