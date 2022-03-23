@@ -115,3 +115,27 @@ class HttpClientFixture(store: ExtensionContext.Store) : TestFixture(store) {
 ```
 
 Using such fixture will also lead to ``FixtureException``
+
+Install
+---
+
+To install add the following dependency
+
+**Gradle**
+```kotlin
+dependencies {
+    testImplementation("io.github.jcechace:fixture5:{latest_version}")
+}
+```
+
+**Maven**
+```xml
+<dependencies>
+    <dependency>
+        <groupId>io.github.jcechace</groupId>
+        <artifactId>fixture5</artifactId>
+        <version>{latest_version}</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+```
