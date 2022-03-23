@@ -5,6 +5,7 @@ val versionMockk: String by project
 plugins {
     kotlin("jvm") version "1.6.10"
     id("org.jetbrains.dokka") version "1.6.10"
+    id("org.jetbrains.kotlinx.kover") version "0.5.0"
     id("signing")
     id("maven-publish")
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
@@ -38,6 +39,10 @@ val dokkaHtmlJar by tasks.register<Jar>("dokkaHtmlJar") {
     dependsOn(tasks.dokkaHtml)
     from(tasks.dokkaHtml.flatMap { it.outputDirectory })
     archiveClassifier.set("html-doc")
+}
+
+kover {
+    coverageEngine.set(kotlinx.kover.api.CoverageEngine.INTELLIJ)
 }
 
 nexusPublishing {
