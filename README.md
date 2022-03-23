@@ -1,3 +1,6 @@
+[![License](http://img.shields.io/:license-apache%202.0-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/io.github.jcechace/fixture5?server=https%3A%2F%2Fs01.oss.sonatype.org%2F)](https://s01.oss.sonatype.org/#nexus-search;gav~io.github.jcechace~fixture5~~~)
+
 Fixture5: Declarative Test Fixtures for JUnit5
 ===
 
