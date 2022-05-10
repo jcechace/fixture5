@@ -11,7 +11,7 @@ import org.junit.jupiter.api.extension.ExtensionContext.Namespace
  * Fixtures can act as dependency producers,
  * these dependencies can then be injected either via constructor or method parameters into test instance
  *
- * [WithFixtures] annotation is used to declare fixture types on top of test class
+ * [fixture5.annotations.Fixture] annotation is used to declare fixture types on top of test class
  */
 @OptIn(ExperimentalStdlibApi::class)
 class FixtureExtension : BeforeAllCallback, AfterAllCallback, ParameterResolver {
