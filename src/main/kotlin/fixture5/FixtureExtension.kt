@@ -13,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtensionContext.Namespace
  *
  * [fixture5.annotations.Fixture] annotation is used to declare fixture types on top of test class
  */
-@OptIn(ExperimentalStdlibApi::class)
 class FixtureExtension : BeforeAllCallback, AfterAllCallback, ParameterResolver {
 
     private lateinit var fixtures: FixtureProcessor
